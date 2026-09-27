@@ -1,10 +1,8 @@
 import {
   ArrowRight,
-  AtSign,
+  CodeXml,
   Globe,
-  Mail,
   PlayCircle,
-  Send,
   Sparkles,
 } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
@@ -16,7 +14,7 @@ const footerColumns = [
       { label: "Home", href: "#home" },
       { label: "AI Workspace", href: "#workspace" },
       { label: "How it Works", href: "#how-it-works" },
-      { label: "Contact", href: "#contact" },
+      { label: "Try the demo", href: "#contact" },
     ],
   },
   {
@@ -34,16 +32,14 @@ const footerColumns = [
       { label: "Dashboard", href: "/dashboard" },
       { label: "Saved Notes", href: "/notes" },
       { label: "Study Planner", href: "/planner" },
-      { label: "Support", href: "mailto:hello@studyai.com" },
+      { label: "Project details", href: "https://github.com/mumar20/studyai#readme" },
     ],
   },
 ];
 
 const socialLinks = [
   { label: "Website", href: "#home", icon: Globe },
-  { label: "Community", href: "#features", icon: AtSign },
-  { label: "Updates", href: "#contact", icon: Send },
-  { label: "Email", href: "mailto:hello@studyai.com", icon: Mail },
+  { label: "Source on GitHub", href: "https://github.com/mumar20/studyai", icon: CodeXml },
 ];
 
 export default function Footer() {
@@ -118,11 +114,11 @@ export default function Footer() {
               </p>
 
               <a
-                href="mailto:hello@studyai.com"
+                href="https://github.com/mumar20/studyai#project-roles"
                 className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-primary transition-colors duration-300 hover:text-primary-hover dark:text-slate-300 dark:hover:text-white"
               >
-                <Mail className="h-4 w-4" aria-hidden="true" />
-                hello@studyai.com
+                <CodeXml className="h-4 w-4" aria-hidden="true" />
+                Project team and source
               </a>
 
               <div className="mt-6 flex items-center gap-3">
@@ -169,11 +165,11 @@ export default function Footer() {
           <div className="mt-12 flex flex-col gap-4 border-t border-border pt-6 text-sm text-muted transition-colors duration-300 dark:border-white/10 dark:text-slate-500 sm:flex-row sm:items-center sm:justify-between">
             <p>&copy; 2026 StudyAI. All rights reserved.</p>
             <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-              <a href="mailto:hello@studyai.com?subject=StudyAI%20Privacy%20Policy" className="font-semibold transition-colors duration-300 hover:text-primary dark:hover:text-white">
-                Privacy
+              <a href="https://github.com/mumar20/studyai#project-status" className="font-semibold transition-colors duration-300 hover:text-primary dark:hover:text-white">
+                Prototype status
               </a>
-              <a href="mailto:hello@studyai.com?subject=StudyAI%20Terms%20of%20Service" className="font-semibold transition-colors duration-300 hover:text-primary dark:hover:text-white">
-                Terms
+              <a href="https://github.com/mumar20/studyai#getting-started" className="font-semibold transition-colors duration-300 hover:text-primary dark:hover:text-white">
+                Run locally
               </a>
             </div>
           </div>
