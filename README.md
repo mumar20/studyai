@@ -11,6 +11,12 @@ This portfolio prototype combines a sample workspace preview with configured stu
 - **Product direction, product brief, acceptance criteria, and review:** Umar Farooq
 - **Engineering implementation:** Completed by the project team.
 
+## Preview
+
+![StudyAI prototype landing page with its sample workspace and prototype disclosure](docs/screenshots/landing-desktop.png)
+
+[Mobile screenshot](docs/screenshots/landing-mobile.png). Captured from a local production build; this image does not establish the current hosted deployment state.
+
 ## Overview
 
 Students can turn a topic into study material, save it, and return to it through an authenticated workspace. The repository includes profile/settings pages and admin tooling.
