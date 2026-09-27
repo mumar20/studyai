@@ -2,7 +2,9 @@
 
 StudyAI is a modern AI-powered study platform built with Next.js, Supabase, and Google Gemini. It helps students generate study notes, summaries, quizzes, and flashcards from any topic or study material.
 
-Live Demo: https://study-ai.mumar.dev/
+[Hosted prototype](https://study-ai.mumar.dev/) · [Source](https://github.com/mumar20/studyai)
+
+This portfolio prototype combines a sample workspace preview with configured study tools. Authentication and saved content use Supabase; generation uses Gemini.
 
 ## Project roles
 
@@ -11,9 +13,17 @@ Live Demo: https://study-ai.mumar.dev/
 
 ## Overview
 
-StudyAI is designed as a premium SaaS-style education platform. It includes authentication, protected dashboard pages, AI generation tools, saved notes, history, profile management, settings, and an admin panel.
+Students can turn a topic into study material, save it, and return to it through an authenticated workspace. The repository includes profile/settings pages and admin tooling.
 
-The project is suitable for a Final Year Project, portfolio showcase, and future production expansion.
+## Where to inspect the code
+
+| Area | Starting point |
+| --- | --- |
+| Public demo and sample workspace | [`app/page.jsx`](app/page.jsx), [`components/Hero.jsx`](components/Hero.jsx) |
+| Authentication and browser data access | [`lib/supabase.js`](lib/supabase.js) |
+| Server-side AI generation | [`app/api/chat/route.js`](app/api/chat/route.js) |
+| Saving generated study material | [`app/api/save-study-item/route.js`](app/api/save-study-item/route.js) |
+| Tables, policies and account triggers | [`database/schema.sql`](database/schema.sql) |
 
 ## Features
 
@@ -31,7 +41,6 @@ The project is suitable for a Final Year Project, portfolio showcase, and future
 - Admin dashboard with role-based access
 - Light and dark mode support
 - Responsive design for mobile, tablet, and desktop
-- Premium SaaS UI inspired by Notion, Linear, Vercel, and ChatGPT
 
 ## Tech Stack
 
@@ -64,6 +73,8 @@ The project is suitable for a Final Year Project, portfolio showcase, and future
 
 ## Getting Started
 
+Requirements: Node.js 20.9 or newer, pnpm, a development Supabase project, and a Gemini API key for generation.
+
 ### 1. Clone the repository
 
 ```bash
@@ -74,18 +85,27 @@ cd studyai
 ### 2. Install dependencies
 
 ```bash
-pnpm install
+pnpm install --frozen-lockfile
 ```
 
 ### 3. Create environment file
 
-Create a `.env.local` file in the root directory and add:
+Copy the maintained template:
 
-```env
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-GEMINI_API_KEY=your_google_gemini_api_key
+```bash
+cp .env.example .env.local
 ```
+
+| Variable | Purpose |
+| --- | --- |
+| `NEXT_PUBLIC_SUPABASE_URL` | Development Supabase project URL |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Browser-safe Supabase anon key; database policies still enforce access |
+| `GEMINI_API_KEY` | Server-only key for generation |
+| `GEMINI_MODEL` | Optional model override; defaults to `gemini-2.5-flash` |
+| `SUPABASE_SERVICE_ROLE_KEY` | Server-only privileged key used by account deletion, admin writes and the save route; never prefix it with `NEXT_PUBLIC_` |
+| `NEXT_PUBLIC_SITE_URL` | `http://localhost:3005` locally; your HTTPS origin when deployed |
+
+Keep `.env.local` out of Git. Use a development project and synthetic study content when evaluating the app.
 
 ### 4. Run the development server
 
@@ -111,18 +131,17 @@ This project uses Supabase for:
 - Flashcard decks
 - Admin roles
 
-Run the SQL files from the `database` folder inside the Supabase SQL Editor.
+Start with [`database/schema.sql`](database/schema.sql) in a new development Supabase project. It defines the base tables, authentication triggers, row-level policies and avatar storage setup. The other files under [`database/`](database) are feature-specific SQL changes, not an ordered migration runner; review them against the schema before applying them to an existing database.
 
-Important tables include:
+Core tables include `profiles`, `notes`, `summaries`, `quiz_history`, `flashcard_decks`, `favorites`, `user_preferences`, `chat_sessions` and `chat_messages`.
 
-- `profiles`
-- `ai_history`
-- `notes`
-- `summaries`
-- `quiz_history`
-- `flashcard_decks`
-- `saved_notes`
-- `user_preferences`
+In Supabase Authentication, configure the site URL and allow the app's callback destinations:
+
+- Local signup confirmation: `http://localhost:3005/dashboard`
+- Local password reset: `http://localhost:3005/reset-password`
+- Deployment: the equivalent paths on your HTTPS app origin
+
+Use the same origin in `NEXT_PUBLIC_SITE_URL`. The development command uses port **3005**; `pnpm start` uses Next.js's default port unless you pass `--port 3005`.
 
 ## Gemini API Setup
 
@@ -146,29 +165,19 @@ Supported roles:
 - `user`
 - `admin`
 
-To make a user admin, update their profile role in Supabase:
-
-```sql
-update public.profiles
-set role = 'admin'
-where email = 'your-email@example.com';
-```
+A new account starts as `user`. Admin actions require a reviewed database role assignment and server configuration. The schema includes a role-change guard, so do not assume a browser setting or public environment variable grants admin access. Review [`database/rbac.sql`](database/rbac.sql) and the current database policies before provisioning an administrator. No admin credentials are included in this repository.
 
 ## Deployment
 
 The project is deployed on Vercel.
 
-Production URL:
+Hosted prototype URL:
 
 ```txt
 https://study-ai.mumar.dev/
 ```
 
-Before deploying, add the required environment variables in Vercel:
-
-- `NEXT_PUBLIC_SUPABASE_URL`
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-- `GEMINI_API_KEY`
+Before deploying, configure the variables in the table above, set `NEXT_PUBLIC_SITE_URL` to your HTTPS origin, and register its authentication callback URLs in Supabase. A successful build alone does not verify email delivery, database policies or AI-provider access.
 
 ## Build
 
@@ -185,7 +194,9 @@ pnpm run build
 
 ## Project Status
 
-StudyAI is feature-complete as a full-stack frontend + Supabase prototype and ready for portfolio/FYP demonstration. It can be extended further with payments, advanced analytics, team workspaces, and richer AI workflows.
+StudyAI is a Next.js and Supabase portfolio prototype. Before treating a deployment as ready, verify signup and password reset, per-user data isolation, generation failures, saving/reloading study items, and admin authorization in your own environment. AI output requires review; do not use private study material in a public demo.
+
+The repository does not currently define a dedicated automated test or lint command. `pnpm build` checks compilation and Next.js build validation; it is not an end-to-end acceptance test.
 
 ## Author
 

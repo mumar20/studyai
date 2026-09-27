@@ -4,14 +4,12 @@ import {
   ArrowRight,
   BookOpenCheck,
   BrainCircuit,
-  CheckCircle2,
   Clock3,
   FileText,
   Layers3,
   PlayCircle,
   Save,
   Sparkles,
-  Star,
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
@@ -40,14 +38,6 @@ const workspaceModes = [
     output:
       "1. What gas do plants absorb? 2. Where does photosynthesis happen? 3. What is glucose used for? Answer key included after the quiz.",
   },
-];
-
-const socialAvatars = [
-  { initials: "AM", className: "bg-primary" },
-  { initials: "SK", className: "bg-violet-500" },
-  { initials: "JR", className: "bg-sky-500" },
-  { initials: "NL", className: "bg-emerald-500" },
-  { initials: "HZ", className: "bg-rose-500" },
 ];
 
 export default function Hero() {
@@ -134,35 +124,10 @@ export default function Hero() {
             </a>
           </div>
 
-          <div className="mt-5 flex flex-col gap-3 rounded-3xl border border-slate-200/80 bg-white/75 p-3 shadow-sm backdrop-blur sm:max-w-xl sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex items-center gap-3">
-              <div className="flex -space-x-3" aria-hidden="true">
-                {socialAvatars.map((avatar) => (
-                  <span
-                    key={avatar.initials}
-                    className={`grid h-9 w-9 place-items-center rounded-full border-2 border-card text-[0.68rem] font-black text-white shadow-sm ${avatar.className}`}
-                  >
-                    {avatar.initials}
-                  </span>
-                ))}
-              </div>
-              <div>
-                <div className="flex items-center gap-1 text-warning" aria-label="Rated 4.9 out of 5">
-                  {[0, 1, 2, 3, 4].map((item) => (
-                    <Star key={item} className="h-3.5 w-3.5 fill-current" aria-hidden="true" />
-                  ))}
-                  <span className="ml-1 text-xs font-black text-text">4.9/5</span>
-                </div>
-                <p className="mt-1 text-sm font-semibold text-muted">
-                  Trusted by <span className="font-black text-text">5,000+ Students</span>
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2 text-sm font-bold text-success">
-              <CheckCircle2 className="h-4 w-4" aria-hidden="true" />
-              Exam ready
-            </div>
-          </div>
+          <p className="mt-6 max-w-xl text-sm leading-6 text-muted">
+            Portfolio prototype. Explore the sample workspace, then try the study tools.
+            AI output can be inaccurate; check it against your learning materials.
+          </p>
         </div>
 
         <div className="relative mx-auto w-full max-w-[22.5rem] min-w-0 studyai-scale-in sm:max-w-[34rem] lg:mx-0 lg:justify-self-end">
