@@ -1,6 +1,6 @@
 import {
   ArrowRight,
-  Github,
+  CodeXml,
   Globe,
   PlayCircle,
   Sparkles,
@@ -39,7 +39,7 @@ const footerColumns = [
 
 const socialLinks = [
   { label: "Website", href: "#home", icon: Globe },
-  { label: "Source on GitHub", href: "https://github.com/mumar20/studyai", icon: Github },
+  { label: "Source on GitHub", href: "https://github.com/mumar20/studyai", icon: CodeXml },
 ];
 
 export default function Footer() {
@@ -117,7 +117,7 @@ export default function Footer() {
                 href="https://github.com/mumar20/studyai#project-roles"
                 className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-primary transition-colors duration-300 hover:text-primary-hover dark:text-slate-300 dark:hover:text-white"
               >
-                <Github className="h-4 w-4" aria-hidden="true" />
+                <CodeXml className="h-4 w-4" aria-hidden="true" />
                 Project team and source
               </a>
 
